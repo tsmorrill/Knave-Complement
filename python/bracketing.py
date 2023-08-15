@@ -65,7 +65,13 @@ def test_many(func):
         test(func, arg1, arg2)
     print("")
 
-test_many(knave_f)
-print("----")
-print("")
-test_many(knave_g)
+
+def main():
+    test_many(knave_f)
+    print("----")
+    print("")
+    test_many(knave_g)
+
+
+if __name__ == "__main__":
+    main()
