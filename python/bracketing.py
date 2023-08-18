@@ -50,22 +50,27 @@ def knave_g(m, n):
     return lookup[n]
 
 
-def test_many(func):
+def test_inputs(func):
     indices = (1, 3, 5, 6, 7)
     name = func.__name__
-    print(f"Testing function {name}:")
-    print("")
     for arg1, arg2 in product(indices, indices):
         val = func(arg1, arg2)
-        print(f"{func.__name__}({arg1}, {arg2} = {val})")
+        print(f"{func.__name__}({arg1}, {arg2}) = {val})")
     print("")
+
+
+def test_many(*funcs):
+    for func in funcs:
+        name = func.__name__
+        print(f"Testing function {name}:")
+        print("----")
+        print("")
+        test_inputs(func)
+        print("")
 
 
 def main():
-    test_many(knave_f)
-    print("----")
-    print("")
-    test_many(knave_g)
+    test_many(knave_f, knave_g)
 
 
 if __name__ == "__main__":
