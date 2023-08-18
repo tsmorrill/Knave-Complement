@@ -50,19 +50,14 @@ def knave_g(m, n):
     return lookup[n]
 
 
-def test(func, arg1, arg2):
-    name = func.__name__
-    val = func(arg1, arg2)
-    print(f"{name}({arg1}, {arg2}) = {val}")
-
-
 def test_many(func):
     indices = (1, 3, 5, 6, 7)
     name = func.__name__
     print(f"Testing function {name}:")
     print("")
     for arg1, arg2 in product(indices, indices):
-        test(func, arg1, arg2)
+        val = func(arg1, arg2)
+        print(f"{func.__name__}({arg1}, {arg2} = {val})")
     print("")
 
 
