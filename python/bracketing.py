@@ -45,31 +45,53 @@ def expand(*seq:int):
     return word(*seq), stats(*seq)
 
 
+def pairs_pad(*seq):
+    '''Return sequence of adjacent pairs, denoting boundaries by None.'''
+    return zip((None,) + seq, seq + (None,))
+
 def knave_f(m, n):
     '''Return the index-sequence corresponding to f(w_m, w_n).'''
     # select lookup table
-    match m:
-        case 1 | 3 | 4:
+    match (m, n):
+        case (1 | 3 | 4, int):
             seq = {1: (3,),
                    3: (4,),
                    4: (6,),
                    5: (3, 1),
                    6: (4,),
                    7: (6,),}
-        case 5:
+        case (5, int):
             seq = {1: (1, 3),
                    3: (1, 4),
                    4: (1, 6),
                    5: (1, 3, 1),
                    6: (1, 4),
                    7: (1, 6),}
-        case 6 | 7:
+        case (6 | 7, int):
             seq = {1: (4,),
                    3: (5,),
                    4: (7,),
                    5: (4, 1),
                    6: (5,),
                    7: (7,),}
+        case (None, int):
+            # initial boundary
+            pass
+            seq = {1: (),
+                   3: (),
+                   4: (),
+                   5: (),
+                   6: (),
+                   7: (),}
+        case (int, None):
+            # terminal boundary
+            pass
+            seq = {1: (),
+                   3: (),
+                   4: (),
+                   5: (),
+                   6: (),
+                   7: (),}
     return seq[n]
 
 
@@ -117,6 +139,7 @@ def test_mult(*funcs):
 
 
 def main():
+    print(tuple(pairs_pad(1, 2, 3)))
     test_mult(expand, knave_f, knave_g)
 
 
