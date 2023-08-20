@@ -3,6 +3,13 @@ from functools import reduce
 from itertools import product
 from pprint import pprint
 
+NAME = 'bracketing.py'
+SPLASH = "Let's have some knavery!"
+VERSION = '0.1'
+CHANGE = 'Added a UI'
+
+MODES = ('test',)
+
 def word(*indices:int):
     '''Return the word corresponding to any number of indices.'''
     # define lookup table
@@ -138,9 +145,71 @@ def test_mult(*funcs):
         print('')
 
 
+
+def version():
+    print(f'v{VERSION}:')
+    print(f'    - {CHANGE}.')
+    print('')
+
+
+def welcome():
+    print(f"Welcome to {NAME}.", SPLASH)
+    version()
+
+
+def oops():
+    print('Come again?')
+    print('')
+
+
+def pick(options:tuple, msg=''):
+    if msg != '':
+        print(msg)
+    verbose = (f'    {i}: {opt}' for i, opt in enumerate(options))
+    for line in verbose:
+        print(line)
+    selection = None
+    while selection is None:
+        try:
+            i = int(input())
+            selection = options[i]
+            print('')
+            print(f'{i}: {selection}')
+        except:
+            oops()
+    print('')
+    return selection
+
+
+def set_mode():
+    return pick(MODES, 'Select mode:')
+
+
+def help_text(mode):
+    text = {'test': 'Test the code for correctness.'}
+    print(text[mode])
+    input('Press ENTER to continue.')
+    print('')
+
+
+def choose_func(mode):
+    def test_func():
+        test_mult(expand, knave_f, knave_g)
+    func = {'test': test_func}
+    return func[mode]
+
+
+def ciao():
+    print('Ciao!')
+
+
 def main():
-    print(tuple(pairs_pad(1, 2, 3)))
-    test_mult(expand, knave_f, knave_g)
+    welcome()
+    mode = set_mode()
+    help_text(mode)
+    func = choose_func(mode)
+    func()
+    ciao()
 
 
 if __name__ == '__main__':
