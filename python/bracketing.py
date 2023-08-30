@@ -15,7 +15,8 @@ def compose(*funcs):
         chain = lambda x: x
     else:
         head, *tail = funcs
-        chain = lambda x: head(compose(*tail))
+        chain_t = compose(*tail)
+        chain = lambda x: head(chain_t(x))
     return lambda x: chain(x)
 
 
