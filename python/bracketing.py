@@ -10,6 +10,15 @@ CHANGE = 'Added a UI'
 
 MODES = ('test',)
 
+def compose(*funcs):
+    if funcs == ():
+        chain = lambda x: x
+    else:
+        head, *tail = funcs
+        chain = lambda x: head(compose(*tail))
+    return lambda x: chain(x)
+
+
 def word(*indices:int):
     '''Return the word corresponding to any number of indices.'''
     # define lookup table
@@ -192,7 +201,7 @@ def help_text(mode):
     print('')
 
 
-def choose_func(mode):
+def action(mode):
     def test_func():
         test_mult(expand, knave_f, knave_g)
     func = {'test': test_func}
@@ -207,8 +216,7 @@ def main():
     welcome()
     mode = set_mode()
     help_text(mode)
-    func = choose_func(mode)
-    func()
+    action(mode)()
     ciao()
 
 
