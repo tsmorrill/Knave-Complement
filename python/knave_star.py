@@ -164,7 +164,7 @@ action = {'test': test}
 
 
 def again():
-    val = pick('Again?', ('No', 'Yes'))
+    val = pick('Choose another mode?', ('No', 'Yes'))
     return val == 'Yes'
 
 
