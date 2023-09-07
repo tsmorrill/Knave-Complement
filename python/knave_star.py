@@ -20,7 +20,7 @@ def compose(*funcs):
     return lambda x: chain(x)
 
 
-bond = {'|': '',
+bond = {'|': '|',
         'a': '',
         'e': '',
         'i': '',
@@ -36,6 +36,23 @@ bond = {'|': '',
         'm': 'e',
         'n': 'a',
         'p': 'i'}
+
+desc_0 = {'|': '|',
+          'a': 'b',
+          'e': 'c',
+          'i': 'f',
+          'b': 'b',
+          'c': 'bb',
+          'd': 'b',
+          'f': 'c',
+          'g': 'cb',
+          'h': 'c',
+          'j': 'f',
+          'k': 'fb',
+          'l': 'f',
+          'm': 'd',
+          'n': 'db',
+          'p': 'd'}
 
 desc_a = {'|': '|',
           'a': 'c',
@@ -88,7 +105,8 @@ desc_i = {'|': '|',
           'n': 'jb',
           'p': 'j'}
 
-lookup = {'a': desc_a,
+lookup = {'|': desc_0,
+          'a': desc_a,
           'e': desc_e,
           'i': desc_i}
 
