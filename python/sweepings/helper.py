@@ -63,17 +63,36 @@ def knave_star(word:str):
     return translate(knave(word))
 
 
-def main():
-    print('Lookup table for knave suffixes:')
+def bonds():
+    print('Lookup table for knave* bonds:')
     print('--------')
-    print('suffix = {')
+    print('bond = {')
     for s in symbols:
-        desc = knave_star(bits[s])
-        v = desc[-1] if desc != '' else ''
+        desc = knave_star(bits[s]) if s != '|' else '|'
+        v = desc[-1]
+        if v not in {'|', 'a', 'e', 'i'}:
+            v = ''
+        print(f"        '{s}': '{v}'")
+    print('}')
+
+
+def knave_no_bleed():
+    print('Lookup table for knave* descriptions, vowels removed:')
+    print('--------')
+    print('desc = {')
+    for s in symbols:
+        desc = knave_star(bits[s]) if s != '|' else '|'
+        v = desc[-1]
         if v not in {'a', 'e', 'i'}:
             v = ''
-        print(f"          '{s}': '{v}'")
+        print(f"        '{s}': '{desc.removesuffix(v)}'")
+    print('}')
 
+
+def main():
+    bonds()
+    print()
+    knave_no_bleed()
 
 if __name__ == "__main__":
     main()
