@@ -2,9 +2,9 @@ Lookup table for knave* bonds:
 --------
 bond = {
         '|': ''
-        'a': 'b'
-        'e': 'c'
-        'i': 'f'
+        'a': ''
+        'e': ''
+        'i': ''
         'b': 'e'
         'c': 'a'
         'd': 'i'
