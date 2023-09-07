@@ -1,0 +1,45 @@
+Python 3.11.5 (tags/v3.11.5:cce6ba9, Aug 24 2023, 14:38:34) [MSC v.1936 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+>>> 
+= RESTART: C:\Users\morrillt\Documents\GitHub\Knave-Complement\python\sweepings\helper.py
+Lookup table for knave* bonds:
+--------
+bond = {
+        '|': '|'
+        'a': ''
+        'e': ''
+        'i': ''
+        'b': 'e'
+        'c': 'a'
+        'd': 'i'
+        'f': 'e'
+        'g': 'a'
+        'h': 'i'
+        'j': 'e'
+        'k': 'a'
+        'l': 'i'
+        'm': 'e'
+        'n': 'a'
+        'p': 'i'
+}
+
+Lookup table for knave* descriptions, vowels removed:
+--------
+desc = {
+        '|': '|'
+        'a': 'b'
+        'e': 'c'
+        'i': 'f'
+        'b': 'b'
+        'c': 'bb'
+        'd': 'b'
+        'f': 'c'
+        'g': 'cb'
+        'h': 'c'
+        'j': 'f'
+        'k': 'fb'
+        'l': 'f'
+        'm': 'd'
+        'n': 'db'
+        'p': 'd'
+}
