@@ -70,7 +70,7 @@ def bonds():
     for s in symbols:
         desc = knave_star(bits[s]) if s != '|' else '|'
         v = desc[-1]
-        if v not in {'|', 'a', 'e', 'i'}:
+        if v not in {'a', 'e', 'i'}:
             v = ''
         print(f"        '{s}': '{v}'")
     print('}')

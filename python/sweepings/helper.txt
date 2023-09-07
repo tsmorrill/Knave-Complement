@@ -1,7 +1,7 @@
 Lookup table for knave* bonds:
 --------
 bond = {
-        '|': '|'
+        '|': ''
         'a': ''
         'e': ''
         'i': ''
