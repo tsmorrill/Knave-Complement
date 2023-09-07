@@ -20,7 +20,7 @@ def compose(*funcs):
     return lambda x: chain(x)
 
 
-bond = {'|': '|',
+bond = {'|': '',
         'a': '',
         'e': '',
         'i': '',
@@ -54,7 +54,7 @@ desc_0 = {'|': '|',
           'n': 'db',
           'p': 'd'}
 
-desc_a = {'|': '|',
+desc_a = {'|': 'a|',
           'a': 'c',
           'e': 'f',
           'i': 'd',
@@ -71,7 +71,7 @@ desc_a = {'|': '|',
           'n': 'bbb',
           'p': 'bb'}
 
-desc_e = {'|': '|',
+desc_e = {'|': 'e|',
           'a': 'f',
           'e': 'd',
           'i': 'bb',
@@ -88,7 +88,7 @@ desc_e = {'|': '|',
           'n': 'gb',
           'p': 'g'}
 
-desc_i = {'|': '|',
+desc_i = {'|': 'i|',
           'a': 'd',
           'e': 'bb',
           'i': 'g',
@@ -105,7 +105,7 @@ desc_i = {'|': '|',
           'n': 'jb',
           'p': 'j'}
 
-lookup = {'|': desc_0,
+lookup = {'': desc_0,
           'a': desc_a,
           'e': desc_e,
           'i': desc_i}
@@ -114,7 +114,8 @@ lookup = {'|': desc_0,
 def knave_star(word: str):
     acc = '|'
     for pair in pairwise(word):
-        desc = lookup[bond[pair[0]]]
+        val = bond[pair[0]]
+        desc = lookup[val]
         acc += desc[pair[1]]
     return acc
 
@@ -128,7 +129,6 @@ def welcome():
 
 def oops():
     print('Come again?')
-    print('')
 
 
 def pick(msg:str, options:tuple):
@@ -164,7 +164,7 @@ action = {'test': test}
 
 
 def again():
-    val = pick('Again?', ('Yes', 'No'))
+    val = pick('Again?', ('No', 'Yes'))
     return val == 'Yes'
 
 
