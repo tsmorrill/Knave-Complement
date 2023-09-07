@@ -68,31 +68,30 @@ def bonds():
     print('--------')
     print('bond = {')
     for s in symbols:
-        desc = knave_star(bits[s]) if s != '|' else '|'
-        v = desc[-1]
-        if v not in {'a', 'e', 'i'}:
-            v = ''
+        desc = knave_star(bits[s])
+        v = desc[-1] if desc != '' else ''
         print(f"        '{s}': '{v}'")
     print('}')
 
 
-def knave_no_bleed():
-    print('Lookup table for knave* descriptions, vowels removed:')
+def knave_no_bleed(bond):
+    print(f'Lookup table for knave* descriptions, vowels removed, bond = {bond}:')
     print('--------')
-    print('desc = {')
+    print(f'desc_{bond} = {{')
     for s in symbols:
-        desc = knave_star(bits[s]) if s != '|' else '|'
+        desc = knave_star(bits[bond] + bits[s]) if s != '|' else '|'
         v = desc[-1]
         if v not in {'a', 'e', 'i'}:
             v = ''
-        print(f"        '{s}': '{desc.removesuffix(v)}'")
+        print(f"          '{s}': '{desc.removesuffix(v)}'")
     print('}')
 
 
 def main():
     bonds()
     print()
-    knave_no_bleed()
+    for bond in ('a', 'e', 'i'):
+        knave_no_bleed(bond)
 
 if __name__ == "__main__":
     main()

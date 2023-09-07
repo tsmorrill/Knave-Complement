@@ -2,9 +2,9 @@ Lookup table for knave* bonds:
 --------
 bond = {
         '|': ''
-        'a': ''
-        'e': ''
-        'i': ''
+        'a': 'b'
+        'e': 'c'
+        'i': 'f'
         'b': 'e'
         'c': 'a'
         'd': 'i'
@@ -19,23 +19,63 @@ bond = {
         'p': 'i'
 }
 
-Lookup table for knave* descriptions, vowels removed:
+Lookup table for knave* descriptions, vowels removed, bond = a:
 --------
-desc = {
-        '|': '|'
-        'a': 'b'
-        'e': 'c'
-        'i': 'f'
-        'b': 'b'
-        'c': 'bb'
-        'd': 'b'
-        'f': 'c'
-        'g': 'cb'
-        'h': 'c'
-        'j': 'f'
-        'k': 'fb'
-        'l': 'f'
-        'm': 'd'
-        'n': 'db'
-        'p': 'd'
+desc_a = {
+          '|': '|'
+          'a': 'c'
+          'e': 'f'
+          'i': 'd'
+          'b': 'c'
+          'c': 'cb'
+          'd': 'c'
+          'f': 'f'
+          'g': 'fb'
+          'h': 'f'
+          'j': 'd'
+          'k': 'db'
+          'l': 'd'
+          'm': 'bb'
+          'n': 'bbb'
+          'p': 'bb'
+}
+Lookup table for knave* descriptions, vowels removed, bond = e:
+--------
+desc_e = {
+          '|': '|'
+          'a': 'f'
+          'e': 'd'
+          'i': 'bb'
+          'b': 'f'
+          'c': 'fb'
+          'd': 'f'
+          'f': 'd'
+          'g': 'db'
+          'h': 'd'
+          'j': 'bb'
+          'k': 'bbb'
+          'l': 'bb'
+          'm': 'g'
+          'n': 'gb'
+          'p': 'g'
+}
+Lookup table for knave* descriptions, vowels removed, bond = i:
+--------
+desc_i = {
+          '|': '|'
+          'a': 'd'
+          'e': 'bb'
+          'i': 'g'
+          'b': 'd'
+          'c': 'db'
+          'd': 'd'
+          'f': 'bb'
+          'g': 'bbb'
+          'h': 'bb'
+          'j': 'g'
+          'k': 'gb'
+          'l': 'g'
+          'm': 'j'
+          'n': 'jb'
+          'p': 'j'
 }
