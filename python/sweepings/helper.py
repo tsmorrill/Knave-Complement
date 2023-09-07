@@ -64,22 +64,15 @@ def knave_star(word:str):
 
 
 def main():
-    print('Higher-order alphabet for the knave map:')
-    print()
+    print('Lookup table for knave suffixes:')
+    print('--------')
+    print('suffix = {')
     for s in symbols:
-        print(s, '=', f"'{bits[s]}'")
-    print()
-    print('Interaction of adjacent symbols (head, tail) under the knave map:')
-    print()
-    for head in symbols:
-        print(f'head = {head}')
-        print('----------------')
-        for tail in symbols:
-            word = bits[head] + bits[tail]
-            print(f'    {head + tail}:', word, '->', knave(word))
-            print(f'        {knave_star(word)}') 
-
-        print()    
+        desc = knave_star(bits[s])
+        v = desc[-1] if desc != '' else ''
+        if v not in {'a', 'e', 'i'}:
+            v = ''
+        print(f"          '{s}': '{v}'")
 
 
 if __name__ == "__main__":
