@@ -1,0 +1,168 @@
+from collections import namedtuple
+from functools import reduce
+from itertools import pairwise, product
+from pprint import pprint
+
+AUTHOR = 'Tamsyn Morrill'
+TITLE = 'knave_star.py'
+DESCRIPTION = "Let's have some knavery!"
+VERSION = '0.1'
+
+MODES = ('test',)
+
+def compose(*funcs):
+    if funcs == ():
+        chain = lambda x: x
+    else:
+        head, *tail = funcs
+        chain_t = compose(*tail)
+        chain = lambda x: head(chain_t(x))
+    return lambda x: chain(x)
+
+
+bond = {'|': '',
+        'a': '',
+        'e': '',
+        'i': '',
+        'b': 'e',
+        'c': 'a',
+        'd': 'i',
+        'f': 'e',
+        'g': 'a',
+        'h': 'i',
+        'j': 'e',
+        'k': 'a',
+        'l': 'i',
+        'm': 'e',
+        'n': 'a',
+        'p': 'i'}
+
+desc_a = {'|': '|',
+          'a': 'c',
+          'e': 'f',
+          'i': 'd',
+          'b': 'c',
+          'c': 'cb',
+          'd': 'c',
+          'f': 'f',
+          'g': 'fb',
+          'h': 'f',
+          'j': 'd',
+          'k': 'db',
+          'l': 'd',
+          'm': 'bb',
+          'n': 'bbb',
+          'p': 'bb'}
+
+desc_e = {'|': '|',
+          'a': 'f',
+          'e': 'd',
+          'i': 'bb',
+          'b': 'f',
+          'c': 'fb',
+          'd': 'f',
+          'f': 'd',
+          'g': 'db',
+          'h': 'd',
+          'j': 'bb',
+          'k': 'bbb',
+          'l': 'bb',
+          'm': 'g',
+          'n': 'gb',
+          'p': 'g'}
+
+desc_i = {'|': '|',
+          'a': 'd',
+          'e': 'bb',
+          'i': 'g',
+          'b': 'd',
+          'c': 'db',
+          'd': 'd',
+          'f': 'bb',
+          'g': 'bbb',
+          'h': 'bb',
+          'j': 'g',
+          'k': 'gb',
+          'l': 'g',
+          'm': 'j',
+          'n': 'jb',
+          'p': 'j'}
+
+lookup = {'a': desc_a,
+          'e': desc_e,
+          'i': desc_i}
+
+
+def knave_star(word: str):
+    acc = '|'
+    for pair in pairwise(word):
+        desc = lookup[bond[pair[0]]]
+        acc += desc[pair[1]]
+    return acc
+
+
+def welcome():
+    print(f'{AUTHOR} welcomes you to {TITLE}, v{VERSION}.')
+    print('')
+    print(DESCRIPTION)
+    print('')
+
+
+def oops():
+    print('Come again?')
+    print('')
+
+
+def pick(msg:str, options:tuple):
+    if msg != '':
+        print(msg)
+    verbose = (f'    {i}: {opt}' for i, opt in enumerate(options))
+    for line in verbose:
+        print(line)
+    selection = None
+    while selection is None:
+        try:
+            i = int(input())
+            selection = options[i]
+        except:
+            oops()
+    print('')
+    return selection
+
+
+def set_mode():
+    return pick('Select mode:', MODES)
+
+
+def test():
+    print('Input a word using the letters a-m, p.')
+    word = input('Vowels may only occur at the end of the word.\n')
+    print()
+    word = '|' + word + '|'
+    desc = knave_star(word)
+    print(f'The star-eyed knave describes {word} as {desc}.')
+
+action = {'test': test}
+
+
+def again():
+    val = pick('Again?', ('Yes', 'No'))
+    return val == 'Yes'
+
+
+def ciao():
+    print('Ciao!')
+
+
+def main():
+    welcome()
+    repeat = True
+    while repeat:
+        mode = set_mode()
+        action[mode]()
+        repeat = again()
+    ciao()
+
+
+if __name__ == '__main__':
+    main()
