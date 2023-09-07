@@ -21,7 +21,7 @@ bond = {
 
 Lookup table for knave* descriptions, vowels removed, bond = |:
 --------
-desc_| = {
+desc_0 = {
           '|': '|',
           'a': 'b',
           'e': 'c',
@@ -42,7 +42,7 @@ desc_| = {
 Lookup table for knave* descriptions, vowels removed, bond = a:
 --------
 desc_a = {
-          '|': '|',
+          '|': 'a|',
           'a': 'c',
           'e': 'f',
           'i': 'd',
@@ -62,7 +62,7 @@ desc_a = {
 Lookup table for knave* descriptions, vowels removed, bond = e:
 --------
 desc_e = {
-          '|': '|',
+          '|': 'e|',
           'a': 'f',
           'e': 'd',
           'i': 'bb',
@@ -82,7 +82,7 @@ desc_e = {
 Lookup table for knave* descriptions, vowels removed, bond = i:
 --------
 desc_i = {
-          '|': '|',
+          '|': 'i|',
           'a': 'd',
           'e': 'bb',
           'i': 'g',

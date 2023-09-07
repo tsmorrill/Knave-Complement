@@ -80,7 +80,7 @@ def knave_no_bleed(bond):
     print('--------')
     print(f'desc_{bond} = {{')
     for s in symbols:
-        desc = knave_star(bits[bond] + bits[s]) if s != '|' else '|'
+        desc = knave_star(bits[bond] + bits[s]) if s != '|' else bond + '|'
         v = desc[-1]
         if v not in {'a', 'e', 'i'}:
             v = ''
