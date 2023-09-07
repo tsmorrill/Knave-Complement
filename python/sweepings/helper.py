@@ -69,9 +69,9 @@ def bonds():
     print('bond = {')
     for s in symbols:
         desc = knave_star(bits[s])
-        v = desc[-1] if desc != '' else ''
-        v = v if f in ('a', 'e', 'i') else ''
-        print(f"        '{s}': '{v}'")
+        v = desc[-1] if desc != '' else '|'
+        v = v if v in ('|', 'a', 'e', 'i') else ''
+        print(f"        '{s}': '{v}',")
     print('}')
 
 
@@ -84,14 +84,14 @@ def knave_no_bleed(bond):
         v = desc[-1]
         if v not in {'a', 'e', 'i'}:
             v = ''
-        print(f"          '{s}': '{desc.removesuffix(v)}'")
+        print(f"          '{s}': '{desc.removesuffix(v)}',")
     print('}')
 
 
 def main():
     bonds()
     print()
-    for bond in ('a', 'e', 'i'):
+    for bond in ('|', 'a', 'e', 'i'):
         knave_no_bleed(bond)
 
 if __name__ == "__main__":
