@@ -52,11 +52,10 @@ def guillotine(word:str):
 
 
 def translate(word:str):
-    acc = '|'
+    acc = ''
     while len(word) > 0:
         s, word = guillotine(word)
         acc += s
-    acc += '|'
     return acc    
                     
 
