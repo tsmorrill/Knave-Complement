@@ -46,11 +46,44 @@ def pick(msg:str, options:tuple):
     return selection
 
 
-MODES = ('Knave*', 'Translation dicitionary')
+MODES = ('Knave Map', 'Knave* Map', 'Translation Dicitionary')
 
 
 def set_mode():
     return pick('Select mode:', MODES)
+
+
+def run_length(data: str):
+    return ((sum(1 for _ in y), x) for x, y in groupby(data))
+
+
+def knave_run(pair):
+    run, char = pair
+    lie = {'0': '1', '1': '0'}
+    return '{0:b}'.format(run) + lie[char]
+
+
+def knave(word:str):
+    pairs = tuple(run_length(word))
+    desc = reduce(lambda x, y: x+y, map(knave_run, pairs), '')
+    return desc
+
+
+def single(func, mode:str):
+    helptext = {'Knave* Map': 'Input a word using the letters a-m, p.'}
+    prompt = {'Knave* Map': 'Vowels may only occur at the end of the word.\n'}
+    adj = {'Knave* Map': 'star-eyed'}
+    def dialogue():
+        print(helptext[mode])
+        word = input(prompt[mode])
+        print()
+        if mode == 'Knave* Map':
+            word = '|' + word + '|'
+        desc = func(word)
+        print(f'The {adj[mode]} knave describes {word} as {desc}.')
+    return dialogue
+
+        
 
 
 bond = {'|': '',
@@ -154,15 +187,6 @@ def knave_star(word: str):
     return acc
 
 
-def single():
-    print('Input a word using the letters a-m, p.')
-    word = input('Vowels may only occur at the end of the word.\n')
-    print()
-    word = '|' + word + '|'
-    desc = knave_star(word)
-    print(f'The star-eyed knave describes {word} as {desc}.')
-
-
 bits = {'|': '',
         'a': '1',
         'e': '11',
@@ -187,8 +211,8 @@ def print_dict():
     print()
 
 
-action = {'Knave*': single,
-          'Translation dicitionary': print_dict}
+action = {'Knave* Map': single(knave_star, 'Knave* Map'),
+          'Translation Dicitionary': print_dict}
 
 
 def again():
