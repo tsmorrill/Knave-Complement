@@ -8,8 +8,6 @@ TITLE = 'knave_star.py'
 DESCRIPTION = "Let's have some knavery!"
 VERSION = '0.1'
 
-MODES = ('knave star',)
-
 def compose(*funcs):
     if funcs == ():
         chain = lambda x: x
@@ -148,6 +146,9 @@ def pick(msg:str, options:tuple):
     return selection
 
 
+MODES = ('Knave*', 'Translation dicitionary')
+
+
 def set_mode():
     return pick('Select mode:', MODES)
 
@@ -160,7 +161,33 @@ def single():
     desc = knave_star(word)
     print(f'The star-eyed knave describes {word} as {desc}.')
 
-action = {'knave star': single}
+
+bits = {'|': '',
+        'a': '1',
+        'e': '11',
+        'i': '111',
+        'b': '10',
+        'c': '100',
+        'd': '1000',
+        'f': '110',
+        'g': '1100',
+        'h': '11000',
+        'j': '1110',
+        'k': '11100',
+        'l': '111000',
+        'm': '11110',
+        'n': '111100',
+        'p': '1111000'
+}
+
+
+def print_dict():
+    pprint(bits)
+    print()
+
+
+action = {'Knave*': single,
+          'Translation dicitionary': print_dict}
 
 
 def again():
