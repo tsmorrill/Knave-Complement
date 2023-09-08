@@ -8,7 +8,7 @@ TITLE = 'knave_star.py'
 DESCRIPTION = "Let's have some knavery!"
 VERSION = '0.1'
 
-MODES = ('test',)
+MODES = ('knave star',)
 
 def compose(*funcs):
     if funcs == ():
@@ -152,7 +152,7 @@ def set_mode():
     return pick('Select mode:', MODES)
 
 
-def test():
+def single():
     print('Input a word using the letters a-m, p.')
     word = input('Vowels may only occur at the end of the word.\n')
     print()
@@ -160,7 +160,7 @@ def test():
     desc = knave_star(word)
     print(f'The star-eyed knave describes {word} as {desc}.')
 
-action = {'test': test}
+action = {'knave star': single}
 
 
 def again():
