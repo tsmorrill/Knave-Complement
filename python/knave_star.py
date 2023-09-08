@@ -34,7 +34,8 @@ def oops():
                   'Do me a solid and read those instructions again.',
                   'Are you doing this on purpose?',
                   "I'm a state machine, not a language model.",
-                  "Honestly, I'm more of a parsnip than a parser."))
+                  "Honestly, I'm more of a parsnip than a parser.",
+                  "Just how much spare time do you think Tammy put into these Easter Eggs?"))
     print(msg)
 
 
