@@ -18,6 +18,41 @@ def compose(*funcs):
     return lambda x: chain(x)
 
 
+def welcome():
+    print(f'{AUTHOR} welcomes you to {TITLE}, v{VERSION}.')
+    print('')
+    print(DESCRIPTION)
+    print('')
+
+
+def oops():
+    print('Come again?')
+
+
+def pick(msg:str, options:tuple):
+    if msg != '':
+        print(msg)
+    verbose = (f'    {i}: {opt}' for i, opt in enumerate(options))
+    for line in verbose:
+        print(line)
+    selection = None
+    while selection is None:
+        try:
+            i = int(input())
+            selection = options[i]
+        except:
+            oops()
+    print('')
+    return selection
+
+
+MODES = ('Knave*', 'Translation dicitionary')
+
+
+def set_mode():
+    return pick('Select mode:', MODES)
+
+
 bond = {'|': '',
         'a': '',
         'e': '',
@@ -35,7 +70,8 @@ bond = {'|': '',
         'n': 'a',
         'p': 'i'}
 
-desc_0 = {'|': '|',
+
+desc_0 = {'|': '|', # Python does not like pipes in its names
           'a': 'b',
           'e': 'c',
           'i': 'f',
@@ -103,54 +139,19 @@ desc_i = {'|': 'i|',
           'n': 'jb',
           'p': 'j'}
 
-lookup = {'': desc_0,
-          'a': desc_a,
-          'e': desc_e,
-          'i': desc_i}
+table = {'': desc_0,
+         'a': desc_a,
+         'e': desc_e,
+         'i': desc_i}
 
 
 def knave_star(word: str):
     acc = '|'
     for pair in pairwise(word):
         val = bond[pair[0]]
-        desc = lookup[val]
+        desc = table[val]
         acc += desc[pair[1]]
     return acc
-
-
-def welcome():
-    print(f'{AUTHOR} welcomes you to {TITLE}, v{VERSION}.')
-    print('')
-    print(DESCRIPTION)
-    print('')
-
-
-def oops():
-    print('Come again?')
-
-
-def pick(msg:str, options:tuple):
-    if msg != '':
-        print(msg)
-    verbose = (f'    {i}: {opt}' for i, opt in enumerate(options))
-    for line in verbose:
-        print(line)
-    selection = None
-    while selection is None:
-        try:
-            i = int(input())
-            selection = options[i]
-        except:
-            oops()
-    print('')
-    return selection
-
-
-MODES = ('Knave*', 'Translation dicitionary')
-
-
-def set_mode():
-    return pick('Select mode:', MODES)
 
 
 def single():
