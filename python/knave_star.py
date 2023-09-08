@@ -199,14 +199,14 @@ def single(func, mode:str):
 
 bits = {'|': '',
         'a': '1',
-        'e': '11',
-        'i': '111',
         'b': '10',
         'c': '100',
         'd': '1000',
+        'e': '11',
         'f': '110',
         'g': '1100',
         'h': '11000',
+        'i': '111',
         'j': '1110',
         'k': '11100',
         'l': '111000',
@@ -217,7 +217,8 @@ bits = {'|': '',
 
 
 def print_dict():
-    pprint(bits)
+    for key in bits.keys():
+        print(f"'{key}' -> '{bits[key]}'")
     print()
 
 
