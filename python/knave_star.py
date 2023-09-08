@@ -1,6 +1,6 @@
 from collections import namedtuple
 from functools import reduce
-from itertools import pairwise, product
+from itertools import groupby, pairwise, product
 from pprint import pprint
 
 AUTHOR = 'Tamsyn Morrill'
@@ -69,23 +69,6 @@ def knave(word:str):
     return desc
 
 
-def single(func, mode:str):
-    helptext = {'Knave* Map': 'Input a word using the letters a-m, p.'}
-    prompt = {'Knave* Map': 'Vowels may only occur at the end of the word.\n'}
-    adj = {'Knave* Map': 'star-eyed'}
-    def dialogue():
-        print(helptext[mode])
-        word = input(prompt[mode])
-        print()
-        if mode == 'Knave* Map':
-            word = '|' + word + '|'
-        desc = func(word)
-        print(f'The {adj[mode]} knave describes {word} as {desc}.')
-    return dialogue
-
-        
-
-
 bond = {'|': '',
         'a': '',
         'e': '',
@@ -102,7 +85,6 @@ bond = {'|': '',
         'm': 'e',
         'n': 'a',
         'p': 'i'}
-
 
 desc_0 = {'|': '|', # Python does not like pipes in its names
           'a': 'b',
@@ -187,6 +169,24 @@ def knave_star(word: str):
     return acc
 
 
+def single(func, mode:str):
+    helptext = {'Knave Map': 'Input a binary word.',
+                'Knave* Map': 'Input a word using the letters a-m, p.'}
+    prompt = {'Knave Map': 'Just zeroes and ones, thank you.\n',
+              'Knave* Map': 'Vowels may only occur at the end of the word.\n'}
+    adj = {'Knave Map': 'two-faced',
+           'Knave* Map': 'star-eyed'}
+    def dialogue():
+        print(helptext[mode])
+        word = input(prompt[mode])
+        print()
+        if mode == 'Knave* Map':
+            word = '|' + word + '|'
+        desc = func(word)
+        print(f'The {adj[mode]} knave describes {word} as {desc}.')
+    return dialogue
+
+
 bits = {'|': '',
         'a': '1',
         'e': '11',
@@ -211,7 +211,8 @@ def print_dict():
     print()
 
 
-action = {'Knave* Map': single(knave_star, 'Knave* Map'),
+action = {'Knave Map': single(knave, 'Knave Map'),
+          'Knave* Map': single(knave_star, 'Knave* Map'),
           'Translation Dicitionary': print_dict}
 
 
