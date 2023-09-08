@@ -2,6 +2,7 @@ from collections import namedtuple
 from functools import reduce
 from itertools import groupby, pairwise, product
 from pprint import pprint
+from random import choice
 
 AUTHOR = 'Tamsyn Morrill'
 TITLE = 'knave_star.py'
@@ -26,7 +27,15 @@ def welcome():
 
 
 def oops():
-    print('Come again?')
+    msg = choice(('Come again?',
+                  "I didn't catch that.",
+                  "Sorry, I'm only a simple script.",
+                  "That's a typo.",
+                  'Do me a solid and read those instructions again.',
+                  'Are you doing this on purpose?',
+                  "I'm a state machine, not a language model.",
+                  "Honestly, I'm more of a parsnip than a parser."))
+    print(msg)
 
 
 def pick(msg:str, options:tuple):
