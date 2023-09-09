@@ -1,13 +1,14 @@
 from collections import namedtuple
 from functools import reduce
 from itertools import groupby, pairwise, product
+from math import pow
 from pprint import pprint
 from random import choice
 
 AUTHOR = 'Tamsyn Morrill'
 TITLE = 'knave_star.py'
 DESCRIPTION = "Let's have some knavery!"
-VERSION = '0.1'
+VERSION = '0.4'
 
 def compose(*funcs):
     if funcs == ():
@@ -56,7 +57,10 @@ def pick(msg:str, options:tuple):
     return selection
 
 
-MODES = ('Knave Map', 'Knave* Map', 'Translation Dicitionary')
+MODES = ('Knave Map',
+         'Knave* Map',
+         'Iterate w/ Stats',
+         'Translation Dicitionary')
 
 
 def set_mode():
@@ -215,6 +219,58 @@ bits = {'|': '',
         'p': '1111000'
 }
 
+Stats_tuple = namedtuple('stats', ['zeroes', 'ones'], defaults=(0, 0))
+
+counts = {'|': Stats_tuple(0, 0),
+          'a': Stats_tuple(0, 1),
+          'b': Stats_tuple(1, 1),
+          'c': Stats_tuple(2, 1),
+          'd': Stats_tuple(3, 1),
+          'e': Stats_tuple(0, 2),
+          'f': Stats_tuple(1, 2),
+          'g': Stats_tuple(2, 2),
+          'h': Stats_tuple(3, 2),
+          'i': Stats_tuple(0, 3),
+          'j': Stats_tuple(1, 3),          
+          'k': Stats_tuple(2, 3),
+          'l': Stats_tuple(3, 3),
+          'm': Stats_tuple(1, 4),
+          'n': Stats_tuple(2, 4),
+          'p': Stats_tuple(3, 4),       
+}
+
+def stats(word):
+    def stat_sum(acc:tuple, char:str):
+        val = counts[char]
+        return (acc[0] + val[0], acc[1] + val[1])
+
+    if len(word) == 1:
+        output = counts[word]
+    else:
+        output = (reduce(stat_sum, word, (0, 0)))
+        output = Stats_tuple(*output)
+    return output
+
+
+def iterate_stats():
+    in_word = input('Input a word using the letters a-m, p.\n')
+    in_word = '|' + in_word + '|'
+    n = int(input('How many iterations?\nn = '))
+    queue = (knave_star for _ in range(n))
+    multi = compose(*queue)
+    out_word = multi(in_word)
+    in_stats = stats(in_word)
+    in_len = in_stats[0] + in_stats[1]
+    in_density = in_stats[1] / in_len
+    out_stats = stats(out_word)
+    out_len = out_stats[0] + out_stats[1]
+    out_density = out_stats[1] / out_len
+    rate = pow(out_len/in_len, 1/n)
+    print('')
+    print(f'A party of {n} knaves depart with a word of bitlength {in_len} and density {in_density}.')
+    print(f'They return with a word of bitlength {out_len} and density {out_density}.')
+    print(f"The average knave extendeds the word's length by a factor of {rate}.\n")    
+
 
 def print_dict():
     for key in bits.keys():
@@ -224,6 +280,7 @@ def print_dict():
 
 action = {'Knave Map': single(knave, 'Knave Map'),
           'Knave* Map': single(knave_star, 'Knave* Map'),
+          'Iterate w/ Stats': iterate_stats,
           'Translation Dicitionary': print_dict}
 
 
