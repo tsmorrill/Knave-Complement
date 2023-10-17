@@ -1,9 +1,6 @@
 from functools import reduce
 from itertools import groupby, pairwise, product
 
-# vowels denote a word consisting of all 1's
-# what a lovely coincidence
-
 bits = {'|': '',
         '.': '1',
         '?': '11',
