@@ -1,7 +1,8 @@
 from functools import reduce
 from itertools import groupby, pairwise, product
 
-bits = {'|': '',
+bits = {'': '',
+        '|': '',
         '.': '1',
         '?': '11',
         '!': '111',       
@@ -23,7 +24,10 @@ bits = {'|': '',
         'n': '111110',
 }
 
-symbols = tuple(bits.keys())
+symbols = tuple(bits.keys())[1:] # omit empty string
+letters = ('a', 'b', 'c', 'd', 'e',
+           'f', 'g', 'h', 'i', 'j',
+           'k', 'l', 'm', 'n', '|')
 
 
 def run_length(data: str):
@@ -65,25 +69,43 @@ def knave_star(word:str):
 
 
 def bonds():
-    print('Lookup table for knave* bonds:')
-    print('--------')
+#   print('Lookup table for knave* bonds:')
+#    print('--------')
     print('bond = {')
     for s in symbols:
         desc = knave_star(bits[s])
         v = desc[-1] if desc != '' else '|'
-        v = v if v in ('|', 'a', 'e', 'i') else ''
+        v = v if v in ('|', '.', '?', '!', ',', ';') else ''
         print(f"        '{s}': '{v}',")
     print('}')
 
 
 def knave_no_bleed(bond):
-    print(f'Lookup table for knave* descriptions, vowels removed, bond = {bond}:')
-    print('--------')
-    print(f'desc_{bond} = {{')
-    for s in symbols:
-        desc = knave_star(bits[bond] + bits[s]) if s != '|' else bond + '|'
+    bondname = {'|': 'pipe', # James
+                '.': 'stop',
+                '?': 'orly',
+                '!': 'bang',
+                ',': 'coma',
+                ';': 'semi',
+                '': 'none',}
+    label = bondname[bond]
+#    print(f'Lookup table for knave* descriptions, punctuation removed, bond = {label}:')
+#    print('--------')
+    print(f'desc_{label} = {{')
+
+    match bond:
+        case '|':
+            compatible_symb = symbols
+        case '':
+            compatible_symb = ('|')
+        case _:
+            compatible_symb = letters
+    for s in compatible_symb:
+        desc = knave_star(bits[bond] + bits[s]) if s != '|' else '|'
+        if bond == '|':
+            desc = '|' + desc
         v = desc[-1]
-        if v not in {'a', 'e', 'i'}:
+        if v not in {'.', '?', '!', ',', ';'}:
             v = ''
         print(f"          '{s}': '{desc.removesuffix(v)}',")
     print('}')
@@ -92,8 +114,9 @@ def knave_no_bleed(bond):
 def main():
     bonds()
     print()
-    for bond in ('|', 'a', 'e', 'i'):
+    for bond in ('|', '.', '?', '!', ',', ';', ''):
         knave_no_bleed(bond)
+        print('')
 
 if __name__ == "__main__":
     main()
