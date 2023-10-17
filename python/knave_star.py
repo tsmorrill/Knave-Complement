@@ -191,6 +191,11 @@ desc_i = {'|': 'i|',
           'n': 'eaea?',
 }
 
+# Tammy what you need to do here is split the logic to alow both a bond of
+# '|' or a bond of ''. The step that adds the outside bars is redundant
+# now that you found the bug in helper.py. You may need to write a new table
+# there first.
+
 table = {'': desc_0,
          'a': desc_a,
          'e': desc_e,
